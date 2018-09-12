@@ -251,7 +251,10 @@ void loop()
 
   // increase brightness exponencionally
   for (uint8_t n = UINT8_MAX; n > brightness; --n) {
-    delayMicroseconds(20);
+    if (state == STATE_FADE_OFF)
+      delayMicroseconds(80);
+    else
+      delayMicroseconds(20);
     buttonChanged();
   }
 }
