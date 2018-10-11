@@ -41,13 +41,13 @@ void sleepPwrDown(uint8_t ledState)
     return;
   // disable PWM because clocks are not active during sleep
   digitalWrite(ledPin, ledState);
-  if (ledState == LOW)
-    // turn off BOD when during sleep when led is off to save more power
-    sleep_bod_disable();
   // go to the deepest of sleeps
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
   // attach pull up interrupt
   attachInterrupt(digitalPinToInterrupt(buttonPin), wakeUpFromSleep, buttonPressed);
+  if (ledState == LOW)
+    // turn off BOD when during sleep when led is off to save more power
+    sleep_bod_disable();
   // sleep now
   sleep_mode();
 }
